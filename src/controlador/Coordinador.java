@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import modelo.dao.MascotaDao;
 
 import modelo.dao.NacimientoDao;
@@ -14,6 +16,7 @@ import modelo.logica.Logica;
 import modelo.vo.MascotasVo;
 import modelo.vo.Nacimiento;
 import modelo.vo.PersonaVo;
+import modelo.vo.ProductoVo;
 import vista.gui.ConsultarPersonaGui;
 import vista.gui.EliminarPersonaGui;
 import vista.gui.RegistrarMascotasGui;
@@ -199,6 +202,12 @@ public class Coordinador {
 	public String EliminarNacimiento(PersonaVo persona) {
 
 		return miNacimientoDao.EliminarNacimiento(persona);
+	}
+
+	public String registrarproductos(ProductoVo miproducto) {
+		
+		miProductoDao = new ProductoDao();
+		return miProductoDao.registrarproducto(miproducto);
 	}
 
 	

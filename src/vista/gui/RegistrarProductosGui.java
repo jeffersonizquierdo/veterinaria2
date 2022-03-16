@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import controlador.Coordinador;
+import modelo.vo.ProductoVo;
 
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
@@ -30,9 +33,11 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 	private JTextField txtPrecio;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
-	private Coordinador micoordinador;
+	private Coordinador miCoordinador;
 
 
+	
+	
 	/**
 	 * Create the dialog.
 	 * @param b 
@@ -47,6 +52,10 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 		setTitle("Gestion de Mascotas");
 		iniciarComponentes();
 		
+		
+	}
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador=miCoordinador;
 		
 	}
 
@@ -104,13 +113,22 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource()==btnRegistrar) {
+			ProductoVo miproducto=new ProductoVo();
+			miproducto.setNombreProducto(txtNombre.getText());
+			miproducto.setPrecioProducto(Double.parseDouble(txtPrecio.getText()));
+			miCoordinador = new Coordinador();
+			String confir =  miCoordinador.registrarproductos(miproducto);
+			
+			if (confir.equals("ok")) {
+				
+				JOptionPane.showMessageDialog(null, "Registro Exitoso");
+			}
+
+			
+		}
 		
 	}
 
-
-	public void setCoordinador(Coordinador miCoordinador) {
-		this.micoordinador=miCoordinador;
-		
-	}
+	
 }
