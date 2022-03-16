@@ -1,0 +1,82 @@
+create database bd_clinica;
+use bd_clinica;
+CREATE TABLE persona(
+	id_persona int(11) NOT NULL,
+	nombre_persona varchar(45) DEFAULT NULL,
+	profesion_persona varchar(45) DEFAULT NULL,
+	telefono_persona varchar(45) DEFAULT NULL,
+	tipo_persona int(2) NOT NULL,
+	nacimiento_id int(11) NOT NULL,
+	PRIMARY KEY (id_persona)
+);
+
+ 
+ALTER TABLE persona 
+ADD INDEX fk_persona_nacimiento (nacimiento_id ASC);
+;
+ALTER TABLE persona
+ADD CONSTRAINT fk_persona_nacimientonacimiento
+	FOREIGN KEY (nacimiento_id)
+    REFERENCES nacimiento (id_nacimiento)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+CREATE TABLE nacimiento(
+	id_nacimiento int(11) NOT NULL AUTO_INCREMENT ,
+	ciudad_nacimiento varchar(45) DEFAULT NULL,
+	departamento_nacimiento varchar(45) DEFAULT NULL,
+	fecha_nacimiento date DEFAULT NULL,
+	pais_nacimiento varchar(45) DEFAULT NULL,
+	PRIMARY KEY (id_nacimiento)
+);
+
+CREATE TABLE mascotas(
+	id_mascota bigint (20) primary key  auto_increment not null,
+    colo varchar(45),
+    nombre varchar(45),
+    raza varchar(45),
+    sexo varchar(45),
+    persona_id int(11)
+);
+
+ALTER TABLE bd_clinica.mascotas
+ADD INDEX Fk_persona_mascotasidx (persona_id ASC) VISIBLE;
+
+alter table bd_clinica.mascotas
+add constraint Fk_personas_mascotas
+	foreign key (persona_id)
+    references bd_clinica.persona (id_persona)
+    on delete no action
+    on update no action;
+
+CREATE TABLE productos(
+id_producto int(11)primary key auto_increment not null ,
+nombre_producto varchar(45) ,
+precio_producto double
+);
+
+CREATE TABLE personas_productos(
+persona_id int(11),
+producto_id int(11)
+);
+
+
+alter table bd_clinica.personas_productos
+add index fk_persona_productos_idx (persona_id asc) visible;
+
+alter table  bd_clinica.personas_productos
+add constraint fk_persona_productos
+	foreign key (persona_id)
+    references bd_clinica.persona (id_persona)
+    on delete no action
+    on update no action;
+    
+alter table bd_clinica.personas_productos
+add index fk_productos_persona_idx (producto_id asc) visible;
+
+alter table bd_clinica.personas_productos
+add constraint fk_productos_persona
+	foreign key (producto_id)
+    references bd_clinica.productos(id_producto)
+    on delete no action
+    on update no action;
+
