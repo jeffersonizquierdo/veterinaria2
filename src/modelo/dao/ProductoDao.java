@@ -2,10 +2,13 @@ package modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
+import modelo.vo.Nacimiento;
+import modelo.vo.PersonaVo;
 import modelo.vo.ProductoVo;
 
 public class ProductoDao {
@@ -70,6 +73,85 @@ public class ProductoDao {
 
 		return resultado;
 	}
+
+
+
+	public ProductoVo consultarpersona(String nombreproduc) {
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		ProductoVo miProducto=null;
+		
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM productos where nombre_producto= ? ";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				statement.setString(1, nombreproduc);
+				
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miProducto= new ProductoVo();
+					
+					miProducto.setNombreProducto(result.getString("nombre_producto"));
+					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
+				
+					
+
+				}		
+				   miConexion.desconectar();
+			}else{
+				miProducto=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta del producto: "+e.getMessage());
+		}
+			return miProducto;
 	}
+
+
+
+	public String actualizarproducto(ProductoVo miproducto) {
+		String resultado="";
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		connection=miConexion.getConnection();
+		
+		try {
+			
+			String consulta = "update  productos  set nombre_producto = ?, precio_producto = ?;";
+			
+			PreparedStatement preStatement = connection.prepareStatement(consulta);
+			preStatement = connection.prepareStatement(consulta);
+			preStatement.setString(1, miproducto.getNombreProducto());
+			preStatement.setDouble(2, miproducto.getPrecioProducto());
+			
+			
+			preStatement.execute();
+
+			resultado = "ok";
+			miConexion.desconectar();
+			
+		}catch(SQLException	 e){
+            System.out.println(e);
+            resultado="error";
+        }
+		return resultado;
+	}
+
+
+
+	
+
+
+
+	
+}
 
 

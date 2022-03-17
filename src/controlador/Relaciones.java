@@ -9,6 +9,7 @@ import modelo.dao.ProductoDao;
 import modelo.logica.Logica;
 
 import vista.gui.ConsultarPersonaGui;
+import vista.gui.ConsultarProductoGui;
 import vista.gui.EliminarPersonaGui;
 import vista.gui.RegistrarMascotasGui;
 import vista.gui.RegistrarPersonasGui;
@@ -34,6 +35,7 @@ public class Relaciones {
 		Logica miLogica;
 		TablaPersonasGui miTablaPersonaGui;
 		EliminarPersonaGui miElimminarPersonaGui;
+		ConsultarProductoGui miConsultarProducto;
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -51,6 +53,7 @@ public class Relaciones {
 		miLogica = new Logica();
 		miTablaPersonaGui = new TablaPersonasGui();
 		miElimminarPersonaGui=new EliminarPersonaGui(miVentanaPrincipal, true);
+		miConsultarProducto=new ConsultarProductoGui();
 		
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
@@ -68,6 +71,7 @@ public class Relaciones {
 		miCoordinador.setLogica(miLogica);
 		miCoordinador.setTablaPersonasGui(miTablaPersonaGui);
 		miCoordinador.setEliminarPersonaGui(miElimminarPersonaGui);
+		miCoordinador.setConsultarProductoGui(miConsultarProducto);
 		
 		
 		//A cada clase unica se le asigna la unica instancia del coordinador
@@ -84,6 +88,7 @@ public class Relaciones {
 		miLogica.setMiCoordinador(miCoordinador);
 		miTablaPersonaGui.setCoordinador(miCoordinador);
 		miElimminarPersonaGui.setMiCoordinador(miCoordinador);
+		miConsultarProducto.setCoordinador(miCoordinador);
 		
 		
 		//Se muestra la ventana principal.

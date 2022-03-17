@@ -155,6 +155,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			micoordinador.mostrarVentanaListarPersona();
 		}if(e.getSource()==itemEliminarPersonas) {
 			micoordinador.mostrarVentanaEliminarPersonaGui();
+		}if(e.getSource()==itemConsultaProductos) {
+			micoordinador.setConsultarProductoGui();
 		}
 	}
 

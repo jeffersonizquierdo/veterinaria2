@@ -1,6 +1,7 @@
 package controlador;
 import java.sql.PreparedStatement;
 
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -18,12 +19,14 @@ import modelo.vo.Nacimiento;
 import modelo.vo.PersonaVo;
 import modelo.vo.ProductoVo;
 import vista.gui.ConsultarPersonaGui;
+import vista.gui.ConsultarProductoGui;
 import vista.gui.EliminarPersonaGui;
 import vista.gui.RegistrarMascotasGui;
 import vista.gui.RegistrarPersonasGui;
 import vista.gui.RegistrarProductosGui;
 import vista.gui.TablaPersonasGui;
 import vista.gui.VentanaPrincipal;
+
 public class Coordinador {
 	
 	VentanaPrincipal miVentanaPrincipal;
@@ -39,6 +42,7 @@ public class Coordinador {
 	Logica miLogica;
 	TablaPersonasGui miTablaPersonasGui;
 	EliminarPersonaGui miEliminarPersonasGui;
+	ConsultarProductoGui miConsultarProductoGui;
 	
 	
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
@@ -86,6 +90,10 @@ public class Coordinador {
 	public void setPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
 		this.miPersonaProductoDao=miPersonaProductoDao;
 	}
+	
+	
+
+	
 	
 	
 
@@ -209,6 +217,29 @@ public class Coordinador {
 		miProductoDao = new ProductoDao();
 		return miProductoDao.registrarproducto(miproducto);
 	}
+
+
+	public void setConsultarProductoGui(ConsultarProductoGui miConsultarProducto) {
+		this.miConsultarProductoGui=miConsultarProducto;
+		
+	}
+
+	public void setConsultarProductoGui() {
+		
+		miConsultarProductoGui.setVisible(true);
+	}
+
+	public ProductoVo ConsultarProductoGui(String nombreproduc) {
+		return miProductoDao.consultarpersona(nombreproduc);
+	}
+
+	public String actualizarProducto(ProductoVo miproducto) {
+		
+		return miProductoDao.actualizarproducto(miproducto);
+	}
+
+	
+	
 
 	
 	
